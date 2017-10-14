@@ -2,45 +2,65 @@ package id.sch.smktelkom_mlg.learning.map;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private final String LOG_TAG = "LaurenceTestApp";
-    private TextView txtOutput;
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
+    GoogleMap m_map;
+    boolean mapReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        Button btnMap = (Button) findViewById(R.id.btnMap);
+        btnMap.setOnClickListener(new View.OnClickListener() {
 
-        txtOutput = (TextView) findViewById(R.id.txtOutput);
+            @Override
+            public void onClick(View view) {
+                if (mapReady) m_map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+            }
+        });
+
+        Button btnSatelite = (Button) findViewById(R.id.btnSatelite);
+        btnSatelite.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (mapReady) m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+            }
+        });
+
+        Button btnHybrid = (Button) findViewById(R.id.btnHybrid);
+        btnHybrid.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (mapReady) m_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            }
+        });
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-
-    }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onMapReady(GoogleMap googleMap) {
+        mapReady = true;
+        m_map = googleMap;
+        LatLng newYork = new LatLng(40.7484, -73.9857);
+        CameraPosition target = CameraPosition.builder().target(newYork).zoom(14).build();
+        m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 
     }
 }
