@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mapReady = true;
         m_map = googleMap;
-        LatLng newYork = new LatLng(40.7484, -73.9857);
-        CameraPosition target = CameraPosition.builder().target(newYork).zoom(14).build();
+        LatLng eaciit = new LatLng(-7.284790, 112.736989);
+        CameraPosition target = CameraPosition.builder().target(eaciit).zoom(14).build();
         m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
 
     }
