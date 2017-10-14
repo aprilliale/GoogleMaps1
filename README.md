@@ -8,3 +8,12 @@
 <br>
 
 <img src="https://user-images.githubusercontent.com/22130552/31575840-7421012e-b119-11e7-8f4a-89677d4cfa70.jpeg" width="290" height="515"/>
+
+<br>
+
+# Identitas
+Nama : Erron Lolha Aprillia </br>
+Kelas : XII RPL 2 </br>
+No : 13 </br>
+NIS : 4705/1424.070 </br>
+Sekolah : Telkom School Malang </br>
